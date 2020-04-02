@@ -1,7 +1,8 @@
-package com.example.procrastinator;
+package com.example.procrastinator.view;
 
 import android.os.Bundle;
 
+import com.example.procrastinator.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -12,7 +13,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class ProcrastinatorMain extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
