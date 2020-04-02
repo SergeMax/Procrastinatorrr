@@ -26,7 +26,7 @@
         android:layout_height="70dp"
         android:layout_marginStart="136dp"
         android:layout_marginLeft="136dp"
-
+android:layout_marginBottom="30dp"
         android:layout_marginTop="20dp"
         android:alpha="1"
         android:foregroundGravity="center_horizontal"
@@ -39,8 +39,8 @@
         android:layout_height="1px"
         android:background="#FF909090"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp"
-android:layout_marginRight="30dp"
+        android:layout_marginLeft="60dp"
+android:layout_marginRight="60dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgClient"
         />
