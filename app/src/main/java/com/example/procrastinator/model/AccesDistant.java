@@ -21,7 +21,7 @@ import java.util.Date;
 public class AccesDistant implements AsyncResponse {
 
     // constante
-    private static final String SERVERADDR = "http://s794979271.onlinehome.fr/capterrainPHP/serveurcapterrain.php";
+    private static final String SERVERADDR = "http://s794979271.onlinehome.fr/procrastinatorPHP/serveurprocrastinator.php";
     private Controler controler;
 
     public AccesDistant() {
@@ -52,7 +52,7 @@ public class AccesDistant implements AsyncResponse {
 
             if (message[0].equals("enregTache")) {
                 Log.d("enregTache", "******************" + message[1]);
-            }else   if (message[0].equals("modifClient")) {
+            }else   if (message[0].equals("modifTache")) {
                 Log.d("modifTache", "******************" + message[1]);
             }else if (message[0].equals("getListeTaches")) {
                     Log.d("getListeTaches", "******************" + message[1]);
@@ -70,14 +70,11 @@ public class AccesDistant implements AsyncResponse {
                             JSONObject info = new JSONObject(jSonInfo.get(i).toString());
 
 
-                            int num_tache = info.getInt("num_tache");
+                            int num_tache = info.getInt("numTache");
                             String titre = info.getString("titre");
                             String categorie = info.getString("categorie");
                             String urgence = info.getString("urgence");
-
-
-
-                            String dateLimite = info.getString("dateLimite");
+                            String dateLimite = info.getString("date_limite");
                             Date date = null;
                             try {
                                 date = formatter.parse(dateLimite);

@@ -1,5 +1,6 @@
 package com.example.procrastinator.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -46,6 +47,9 @@ public class ListeTaches extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        changeToolbarFont((Toolbar) findViewById(R.id.toolbar), this);
+
+
 
 
         this.controler = Controler.getInstance(this);
@@ -66,9 +70,6 @@ public class ListeTaches extends AppCompatActivity  {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Vous allez ajouter une nouvelle tâche !", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
                 Intent i = new Intent(ListeTaches.this, AddTache.class);
                 startActivity(i);
                 finish();
@@ -82,6 +83,7 @@ public class ListeTaches extends AppCompatActivity  {
         //Font///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/vfuturalight.otf");
+
 
         //  txtTitre.setTypeface(font);
     }
@@ -163,6 +165,27 @@ public class ListeTaches extends AppCompatActivity  {
         btnAddTacheListener();
 
     }
+
+
+    public static void changeToolbarFont(Toolbar toolbar, Activity context) {
+        for (int i = 0; i < toolbar.getChildCount(); i++) {
+            View view = toolbar.getChildAt(i);
+            if (view instanceof TextView) {
+                TextView tv = (TextView) view;
+                if (tv.getText().equals(toolbar.getTitle())) {
+                    applyFont(tv, context);
+                    break;
+                }
+            }
+        }
+    }
+
+    public static void applyFont(TextView tv, Activity context) {
+        tv.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/vfuturalight.otf"));
+        tv.setTextSize(27);
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

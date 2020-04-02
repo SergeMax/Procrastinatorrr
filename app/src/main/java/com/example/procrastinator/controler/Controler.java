@@ -41,7 +41,7 @@ public final class Controler {
          //   recupSerialize(contexte);
 //            recupSerializeTabClients(contexte);
             accesDistant = new AccesDistant();
-            accesDistant.envoi("getListeTache", new JSONArray());
+            accesDistant.envoi("getListeTaches", new JSONArray());
 
         }
         return Controler.instance;
