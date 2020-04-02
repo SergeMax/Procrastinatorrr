@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:padding="10dp"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        tools:ignore="ExtraText"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/arrowBack"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:srcCompat="@drawable/arrow_back"
+            android:layout_marginBottom="-50dp"
+            android:layout_marginLeft="-16dp"
+            style="?android:borderlessButtonStyle"
+            android:alpha="0.5"
+            tools:ignore="VectorDrawableCompat" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="250dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="25dp"
+
+            app:srcCompat="@drawable/main" />
+
+        <TextView
+            android:id="@+id/txtajouter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ajouter"
+            android:textAlignment="center"
+            android:textSize="36dp"
+            android:layout_marginTop="-5dp"
+            android:layout_marginBottom="30dp"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="#FF909090"
+            android:layout_marginBottom="15dp"/>
+
+
+        <Spinner
+            android:id="@+id/spinnerCategorie"
+            android:layout_width="match_parent"
+            android:background="#F6F6F6"
+            android:layout_height="60dp"
+            android:spinnerMode="dropdown"
+            android:hint="Categorie :"
+            android:layout_marginBottom="15dp"
+            />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2px"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="#FF909090"
+            android:layout_marginBottom="15dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtTitre1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterMaxLength="50"
+            app:errorEnabled="true"
+            android:background="@drawable/input_shape_back">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:paddingLeft="10dp"
+
+                android:id="@+id/txtTitreT"
+                android:layout_height="60dp"
+                android:hint="Titre"
+                android:layout_marginBottom="20dp"
+                android:inputType="text"
+                android:background="@drawable/input_shape"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2px"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="#FF909090"
+            android:layout_marginBottom="5dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerUrgence"
+            android:layout_width="match_parent"
+            android:background="#F6F6F6"
+            android:layout_height="60dp"
+            android:spinnerMode="dropdown"
+            android:hint="Urgence"
+            android:layout_marginBottom="15dp"
+            />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2px"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="#FF909090"
+            android:layout_marginBottom="15dp"/>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtDateLimite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+
+            android:background="@drawable/input_shape_back">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtDateLimiteT"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:paddingLeft="10dp"
+
+                android:layout_marginBottom="20dp"
+                android:hint="Date limite : (JJ/MM/AAAA)"
+                android:inputType="number"
+                android:background="@drawable/input_shape"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2px"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+
+            android:background="#FF909090"
+            android:layout_marginBottom="20dp"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtDuree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/input_shape_back">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtDureeT"
+                android:paddingLeft="10dp"
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Durée de la tâche :"
+                android:inputType="text"
+                android:background="@drawable/input_shape"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <View
+            android:layout_width="fill_parent"
+             android:layout_height="2px"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="#FF909090"
+            android:layout_marginBottom="15dp"/>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtCommentaire"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            app:errorEnabled="true"
+            android:background="@drawable/input_shape_back">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:hint="Commentaire :"
+                android:layout_gravity="start"
+                android:layout_height="200dp"
+                android:id="@+id/txtCommentaireT"
+                android:paddingLeft="10dp"
+                android:layout_marginBottom="20dp"
+
+                android:inputType="textMultiLine"
+                android:background="@drawable/input_shape"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="#FF909090"
+            android:layout_marginBottom="15dp"/>
+        <View
+            android:layout_width="200dp"
+            android:layout_gravity="center"
+            android:layout_height="2px"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="#FF909090"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/btnValider"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:onClick="confirmInput"
+
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+
+            android:text="Ajouter"
+            android:textSize="16dp"
+            android:letterSpacing="0.7"/>
+
+    </LinearLayout>
+</ScrollView>

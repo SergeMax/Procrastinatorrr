@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".view.ProcrastinatorMain"
+    tools:context=".view.ListeTaches"
     tools:showIn="@layout/activity_main">
 
     <!--
@@ -54,7 +54,7 @@ android:layout_marginRight="60dp"
         tools:context="com.example.formation.myrecyclerview.MainActivity">>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/client_recyclerview"
+            android:id="@+id/taches_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical" />

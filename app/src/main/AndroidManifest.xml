@@ -9,14 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".view.AddTache"></activity>
+        <activity android:name=".view.TacheFiche" />
         <activity android:name=".view.ConnectActivity" />
         <activity
-            android:name=".view.ProcrastinatorMain"
+            android:name=".view.ListeTaches"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.SplashScreen"
             android:label="@string/title_activity_splash_screen"
