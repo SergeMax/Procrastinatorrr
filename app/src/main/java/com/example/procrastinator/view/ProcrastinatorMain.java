@@ -1,5 +1,6 @@
 package com.example.procrastinator.view;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import com.example.procrastinator.R;
@@ -12,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class ProcrastinatorMain extends AppCompatActivity {
 
@@ -30,6 +32,15 @@ public class ProcrastinatorMain extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+      //  TextView txtTitre = (TextView) findViewById(R.id.listetache);
+
+
+        //Font///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/vfuturalight.otf");
+
+      //  txtTitre.setTypeface(font);
     }
 
     @Override
