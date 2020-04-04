@@ -47,9 +47,7 @@ public class AddTache extends AppCompatActivity {
     private TextInputLayout input_txtCommentaire;
 
 
-
     private int tacheNumId;
-
 
 
     private int num_clients;
@@ -79,6 +77,8 @@ public class AddTache extends AppCompatActivity {
     private TextInputEditText input_commentaire_clientT;
     private EditText datelimiteT;
     private Calendar myCalendar;
+    private TextInputEditText input_duree;
+    private TextInputEditText input_dureeT;
 
 
     @Override
@@ -98,11 +98,9 @@ public class AddTache extends AppCompatActivity {
     private void init() {
 
 
+        myCalendar = Calendar.getInstance();
 
-
-         myCalendar = Calendar.getInstance();
-
-      datelimiteT = (EditText) findViewById(R.id.txtDateLimiteT);
+        datelimiteT = (EditText) findViewById(R.id.txtDateLimiteT);
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -130,9 +128,6 @@ public class AddTache extends AppCompatActivity {
         });
 
 
-
-
-
         //Button/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         btnValider = (Button) findViewById(R.id.btnValider);
@@ -151,6 +146,8 @@ public class AddTache extends AppCompatActivity {
         spinnerUrgence = findViewById(R.id.spinnerUrgence);
 
 
+        input_duree = findViewById(R.id.txtDuree);
+        input_dureeT = findViewById(R.id.txtDureeT);
 
 
         input_commentaire_client = (TextInputLayout) findViewById(R.id.txtCommentaire);
@@ -180,10 +177,10 @@ public class AddTache extends AppCompatActivity {
 //set the spinners adapter to the previously created one.
         spinnerCategorie.setAdapter(adapter);
 
-         items = new String[]{"Urgence de la tâche sur 10 :", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+        items = new String[]{"Urgence de la tâche sur 10 :", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 //create an adapter to describe how the items are displayed, adapters are used in several places in android.
 //There are multiple variations of this, but this is the basic variant.
-       adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
 
         spinnerUrgence.setAdapter(adapter);
 
@@ -219,20 +216,23 @@ public class AddTache extends AppCompatActivity {
 
                                             input_txtTitre.getEditText().setText(lesTaches.get(z).getTitre());
 
-                                           datelimiteT.setText(lesTaches.get(z).getDateLimite());
+                                            datelimiteT.setText(lesTaches.get(z).getDateLimite());
+
+                                            input_dureeT.setText(lesTaches.get(z).getDuree());
+
 
                                             if (lesTaches.get(z).getCategorie().equals("M.")) {
                                                 spinnerCategorie.setSelection(0);
-                                            }else{
+                                            } else {
                                                 spinnerCategorie.setSelection(1);
 
                                             }
 
                                             if (lesTaches.get(z).getCategorie().equals("M.")) {
-                                             //   input_txt_urgence.getEditText().setText(lesTaches.get(z).getUrgence());
+                                                //   input_txt_urgence.getEditText().setText(lesTaches.get(z).getUrgence());
 
                                                 spinnerUrgence.setSelection(0);
-                                            }else{
+                                            } else {
                                                 spinnerUrgence.setSelection(1);
 
                                             }
@@ -283,7 +283,6 @@ public class AddTache extends AppCompatActivity {
     }
 
 
-
     private boolean validateTelClient1() {
         String emailInput = datelimiteT.getText().toString().trim();
 
@@ -310,12 +309,12 @@ public class AddTache extends AppCompatActivity {
 
     public void confirmInput(View view) throws ParseException {
 
-        if (!validateNomClient1() | !validateTelClient1() ) {
+        if (!validateNomClient1() | !validateTelClient1()) {
 
-            Toast toast=Toast.makeText(getApplicationContext(),"Les champs  *  ne peuvent être vides.",Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER,0,450);
-            view =toast.getView();
-            TextView  view1=(TextView)view.findViewById(android.R.id.message);
+            Toast toast = Toast.makeText(getApplicationContext(), "Les champs  *  ne peuvent être vides.", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 450);
+            view = toast.getView();
+            TextView view1 = (TextView) view.findViewById(android.R.id.message);
             view1.setTextColor(Color.BLACK);
             view.setBackgroundResource(R.drawable.toast_yellow_shape);
 
@@ -331,12 +330,14 @@ public class AddTache extends AppCompatActivity {
         // num_secteur_terrain = secteur;
         titre = input_txtTitre.getEditText().getText().toString().toUpperCase();
 
-        urgence =  spinnerUrgence.getSelectedItem().toString();
+        urgence = spinnerUrgence.getSelectedItem().toString();
 
         String categorie = spinnerCategorie.getSelectedItem().toString();
-        dateLimite =  datelimiteT.getText().toString();
+        dateLimite = datelimiteT.getText().toString();
 
-        commentaire_tache = input_commentaire_client.getEditText().getText().toString();
+        String duree = input_dureeT.getText().toString();
+
+                commentaire_tache = input_commentaire_client.getEditText().getText().toString();
 
         setChampsVide();
 
@@ -345,23 +346,21 @@ public class AddTache extends AppCompatActivity {
         input += "\n";
 
 
-
-        if (modeEdit == true){
+        if (modeEdit == true) {
 
             Toast.makeText(this, "Tache modifié", Toast.LENGTH_SHORT).show();
             System.out.println(input);
 
-            this.controler.modifierTache(tacheNumId, titre, categorie, urgence, dateLimite,
-                   this, commentaire_tache);
+            this.controler.modifierTache(tacheNumId, titre, categorie, urgence, duree, dateLimite,
+                    this, commentaire_tache);
 
-        }else {
-
+        } else {
 
 
             Toast.makeText(this, "Tache ajouté", Toast.LENGTH_SHORT).show();
             System.out.println(input);
 
-            this.controler.creerTache(titre, urgence, sexe_client_1, dateLimite,
+            this.controler.creerTache(titre, categorie, urgence, duree , dateLimite,
                     /*polygone_client, tab_polygone_client*/ this, commentaire_tache);
 
             Intent o = new Intent(AddTache.this, ListeTaches.class);

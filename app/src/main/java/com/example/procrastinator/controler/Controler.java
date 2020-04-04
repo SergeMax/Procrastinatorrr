@@ -66,8 +66,8 @@ public final class Controler {
     }
 
 
-    public void creerTache(String  titre, String categorie, String urgence, String dateLimite, Context context, String commentaire){
-        tache = new Taches(titre, categorie, urgence, dateLimite, context, commentaire);
+    public void creerTache(String  titre, String categorie, String urgence, String duree, String dateLimite, Context context, String commentaire){
+        tache = new Taches(titre, categorie, urgence, duree, dateLimite, context, commentaire);
 
         System.out.println(tache);
 
@@ -82,9 +82,9 @@ public final class Controler {
         //Serializer.serializeTabClients(nomFictabClient, tabTache, contexte);
     }
 
-    public void modifierTache(int num_tache, String  titre, String categorie, String urgence, String dateLimite, Context context, String commentaire) {
+    public void modifierTache(int num_tache, String  titre, String categorie, String urgence, String duree, String dateLimite, Context context, String commentaire) {
 
-        tache = new Taches(num_tache, titre, categorie, urgence, dateLimite, context, commentaire);
+        tache = new Taches(num_tache, titre, categorie, urgence, duree, dateLimite, context, commentaire);
 
 
         accesDistant.envoi("modifTache", tache.convertToJSONArrayModifClient());

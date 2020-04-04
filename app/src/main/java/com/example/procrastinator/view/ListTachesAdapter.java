@@ -1,6 +1,7 @@
 package com.example.procrastinator.view;
 
 
+import android.animation.ObjectAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,9 +38,12 @@ public class ListTachesAdapter extends RecyclerView.Adapter<ListTachesAdapter.Cl
 
         public ClientsViewHolder(View itemView, GoFicheIntent.OnTonFragmentInteractionListener _mListener) {
             super(itemView);
+
             nomClient1 = itemView.findViewById(R.id.catTache);
             prenomClient1 = itemView.findViewById(R.id.titreTache);
             mListener = _mListener;
+
+
 
          /*   btnConsulter.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -75,6 +79,8 @@ public class ListTachesAdapter extends RecyclerView.Adapter<ListTachesAdapter.Cl
         Taches taches = listeTaches.get(position);
         holder.nomClient1.setText(taches.getTitre());
         holder.prenomClient1.setText(taches.getUrgence());
+
+
 //        holder.btnConsulter.setTag(""+listeTaches.get(position).getNum_tache());
 
 

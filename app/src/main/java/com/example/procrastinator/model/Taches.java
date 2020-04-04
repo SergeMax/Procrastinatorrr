@@ -16,6 +16,7 @@ public class Taches implements Serializable {
     private String urgence;
     private String dateLimite;
     private int num_tache;
+    private String duree;
 
     private String commentaire_tache;
     private Context contexte;
@@ -24,25 +25,35 @@ public class Taches implements Serializable {
     private static ArrayList<Taches> array_clients = new ArrayList<Taches>();
 
 
-    public Taches(String titre, String categorie, String urgence, String dateLimite, Context contexte, String commentaire_tache) {
+    public Taches(String titre, String categorie, String urgence, String duree, String dateLimite, Context contexte, String commentaire_tache) {
         this.titre = titre;
         this.categorie = categorie;
         this.urgence = urgence;
+        this.duree = duree;
         this.dateLimite = dateLimite;
         this.contexte = contexte;
         this.commentaire_tache = commentaire_tache;
 
     }
 
-    public Taches(int num_tache, String titre, String categorie, String urgence, String dateLimite, Context contexte, String commentaire_tache) {
+    public Taches(int num_tache, String titre, String categorie, String urgence, String duree, String dateLimite, Context contexte, String commentaire_tache) {
         this.num_tache = num_tache;
         this.titre = titre;
         this.categorie = categorie;
         this.urgence = urgence;
+        this.duree = duree;
         this.dateLimite = dateLimite;
         this.contexte = contexte;
         this.commentaire_tache = commentaire_tache;
 
+    }
+
+    public String getDuree() {
+        return duree;
+    }
+
+    public void setDuree(String duree) {
+        this.duree = duree;
     }
 
     public int getNum_tache() {
@@ -66,6 +77,7 @@ public class Taches implements Serializable {
                         "Categorie : " + categorie + "<br>" +
                         "Titre : " + titre + "<br>" +
                         "Urgence : " + urgence + "<br>" +
+                        "Duree : " + duree + "<br>" +
                         "Date limite : " + dateLimite + "<br>" +
                         "<h2>Commentaire : " + "</h2>" +
                         commentaire_tache + "<br></div>";
@@ -87,6 +99,7 @@ public class Taches implements Serializable {
         laListe.add(titre);
         laListe.add(categorie);
         laListe.add(urgence);
+        laListe.add(duree);
         laListe.add(dateLimite);
         laListe.add(commentaire_tache);
 
@@ -99,6 +112,7 @@ public class Taches implements Serializable {
         laListe.add(titre);
         laListe.add(categorie);
         laListe.add(urgence);
+        laListe.add(duree);
         laListe.add(dateLimite);
         laListe.add(commentaire_tache);
         laListe.add(num_tache);

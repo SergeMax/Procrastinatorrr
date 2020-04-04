@@ -77,12 +77,16 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
             connexion.setFixedLengthStreamingMode(parametres.getBytes().length);
             // création de la requete d'envoi sur la connexion, avec les paramètres
             writer = new PrintWriter(connexion.getOutputStream());
+            System.out.println(writer.checkError());
+
             writer.print(parametres);
             // Une fois l'envoi réalisé, vide le canal d'envoi
             writer.flush();
             // Récupération du retour du serveur
             reader = new BufferedReader(new InputStreamReader(connexion.getInputStream()));
+
             ret = reader.readLine();
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

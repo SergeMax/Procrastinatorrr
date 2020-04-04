@@ -56,16 +56,20 @@ public class AccesDistant implements AsyncResponse {
                 Log.d("modifTache", "******************" + message[1]);
             }else if (message[0].equals("getListeTaches")) {
                     Log.d("getListeTaches", "******************" + message[1]);
-                    try {
-                        JSONArray jSonInfo = new JSONArray(message[1]);
-                        ArrayList<Taches> lesTaches = new ArrayList<>();
 
-                        DateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
-                        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                        DateFormat dateFormatISO8601 = new SimpleDateFormat("dd/MM/yyyy");
 
+
+                try {
+                    System.out.println("passe dans le try acces Distant");
+
+                    JSONArray jSonInfo = new JSONArray(message[1]);
+                    ArrayList<Taches> lesTaches = new ArrayList<>();
+
+                    System.out.println("passe dans le try acces Distant");
 
                         for (int i = 0; i < jSonInfo.length(); i++) {
+
+                            System.out.println("passe dans le for acces Distant");
 
                             JSONObject info = new JSONObject(jSonInfo.get(i).toString());
 
@@ -73,25 +77,19 @@ public class AccesDistant implements AsyncResponse {
                             int num_tache = info.getInt("numTache");
                             String titre = info.getString("titre");
                             String categorie = info.getString("categorie");
+                            String duree = info.getString("duree");
+
                             String urgence = info.getString("urgence");
                             String dateLimite = info.getString("date_limite");
-                            Date date = null;
-                            try {
-                                date = formatter.parse(dateLimite);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                                System.out.println("probleme date parse sout");
-                            }
-                            dateLimite = dateFormatISO8601.format(date);
-
-
                             String commentaire = info.getString("commentaire");
 
 
 
-                            Taches taches = new Taches(num_tache, titre, categorie, urgence,
+                            Taches taches = new Taches(num_tache, titre, categorie, urgence, duree,
                                     dateLimite, null, commentaire );
                             lesTaches.add(taches);
+                            System.out.println("passage fin du for acces Distant");
+
                         }
                         System.out.println("passage controleur qui set le tableau dans accesDistant ligne 72");
                         controler.setLesTaches(lesTaches);
@@ -112,6 +110,8 @@ public class AccesDistant implements AsyncResponse {
 
 
     public void envoi(String operation, JSONArray lesDonneesJSON) {
+
+        System.out.println("::::::: envoi");
         AccesHTTP accesDonnes = new AccesHTTP();
         // lien de délégation
         accesDonnes.delegate = this;

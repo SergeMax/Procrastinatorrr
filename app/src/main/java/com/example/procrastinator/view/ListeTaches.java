@@ -1,5 +1,6 @@
 package com.example.procrastinator.view;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -19,10 +20,12 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -31,7 +34,9 @@ public class ListeTaches extends AppCompatActivity  {
 
 
     private ImageView btnAddTache;
-    private LinearLayoutManager layoutManager;
+
+    // On veut un RecyclerView qui utilise un LinearLayoutManager
+    private LinearLayoutManager layoutManager = new LinearLayoutManager(this);
     private ListTachesAdapter listTachesAdapter;
     private Controler controler;
     GoFicheIntent.OnTonFragmentInteractionListener mListener;
@@ -105,58 +110,88 @@ public class ListeTaches extends AppCompatActivity  {
 
         //Font///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/vfuturalight.otf");
+        final Typeface font = Typeface.createFromAsset(getAssets(), "fonts/vfuturalight.otf");
 
         //InitFontOnButton///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        //InitListView/////////////////////////////////////////////////////////////////////////////////////////////////////////
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.taches_recyclerview);
-
-
-        // if (controler.getLesTaches().get(0) != null) {
-
-        final List<Taches> listTachesRemplie = controler.getLesTaches();
-
-
-        // On récupère notre RecyclerView via son id
-        recyclerView = findViewById(R.id.taches_recyclerview);
-
-        // On veut un RecyclerView qui utilise un LinearLayoutManager
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-
-        // On donne notre adapter à notre RecyclerView
-        listTachesAdapter = new ListTachesAdapter(listTachesRemplie, mListener);
-        recyclerView.setAdapter(listTachesAdapter);
-
-        recyclerView.addOnItemTouchListener(new RecyclerviewItemListener(getApplicationContext(), recyclerView, new RecyclerviewItemListener.ClickListener() {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onClick(View view, int position) {
-                Taches taches = listTachesRemplie.get(position);
-                //  Toast.makeText(getApplicationContext(), clients.getTitre() + " is selected!", Toast.LENGTH_SHORT).show();
+            public void run() {
 
-                Intent i = new Intent(ListeTaches.this, TacheFiche.class);
-                i.putExtra("num_client", "" + taches.getNum_tache());
+                //InitListView/////////////////////////////////////////////////////////////////////////////////////////////////////////
+                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.taches_recyclerview);
 
 
-                startActivity(i);
-                finish();
+                // if (controler.getLesTaches().get(0) != null) {
+
+                final List<Taches> listTachesRemplie = controler.getLesTaches();
 
 
+                // On récupère notre RecyclerView via son id
+                recyclerView = findViewById(R.id.taches_recyclerview);
+
+                recyclerView.setLayoutManager(layoutManager);
+
+
+                // On donne notre adapter à notre RecyclerView
+                listTachesAdapter = new ListTachesAdapter(listTachesRemplie, mListener);
+
+
+
+
+
+                recyclerView.setAdapter(listTachesAdapter);
+
+                recyclerView.setAlpha(0f);
+
+                ObjectAnimator.ofFloat(recyclerView, "alpha", 0f, 1f).setDuration(2000).start();
+
+
+
+             //   recyclerView.setAlpha(0f);
+
+
+
+
+
+
+             //   ObjectAnimator.ofFloat(recyclerView, "alpha", 0f, 1f).setDuration(2000).start();
+                //markerTerrainArrayList.get(y).setAlpha(h);
+
+
+
+
+                recyclerView.addOnItemTouchListener(new RecyclerviewItemListener(getApplicationContext(), recyclerView, new RecyclerviewItemListener.ClickListener() {
+                    @Override
+                    public void onClick(View view, int position) {
+                        Taches taches = listTachesRemplie.get(position);
+                        //  Toast.makeText(getApplicationContext(), clients.getTitre() + " is selected!", Toast.LENGTH_SHORT).show();
+
+                        Intent i = new Intent(ListeTaches.this, TacheFiche.class);
+                        i.putExtra("numTache", "" + taches.getNum_tache());
+
+
+                        startActivity(i);
+                        finish();
+
+
+                    }
+
+                    @Override
+                    public void onLongClick(View view, int position) {
+
+                    }
+                }));
+
+
+                // On sépare chaque ligne de notre liste par un trait
+                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+                recyclerView.addItemDecoration(dividerItemDecoration);
             }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
+        }, 1000);
 
 
-        // On sépare chaque ligne de notre liste par un trait
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(dividerItemDecoration);
 
 
         //Listener///////////////////////////////////////////////////////////////////////////////////////////////////////////
