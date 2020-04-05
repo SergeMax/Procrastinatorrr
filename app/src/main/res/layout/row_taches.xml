@@ -51,6 +51,8 @@
         android:layout_height="wrap_content"
         android:text="9/10"
         android:layout_marginTop="15dp"
+        android:translationX="45sp"
+        android:textAlignment="textEnd"
         android:layout_marginBottom="15dp"
         android:layout_marginRight="10dp"
         android:layout_weight="1"
@@ -63,7 +65,7 @@
         android:text=""
         android:layout_marginTop="6dp"
         android:layout_marginBottom="15dp"
-        android:translationX="30sp"
+        android:translationX="40sp"
         android:layout_weight="1"
         android:textSize="16sp"
         android:background="@color/colorAccent"/>

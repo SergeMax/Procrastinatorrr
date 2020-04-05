@@ -123,7 +123,7 @@ public class AccesDistant implements AsyncResponse {
                         String categorie = info.getString("categorie");
                         String duree = info.getString("duree");
 
-                        String urgence = info.getString("urgence");
+                        String urgence = String.valueOf(info.getInt("urgence"));
                         String dateLimite = info.getString("date_limite");
                         String commentaire = info.getString("commentaire");
 
