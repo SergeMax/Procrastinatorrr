@@ -98,7 +98,51 @@ public class AccesDistant implements AsyncResponse {
                         Log.d("erreur", "conversion JSON impossible " + e.toString());
                     }
 
-                } else {
+            }else if (message[0].equals("getListeTachesParCateg")) {
+                Log.d("getListeTaches", "******************" + message[1]);
+
+
+
+                try {
+                    System.out.println("passe dans le try acces Distant");
+
+                    JSONArray jSonInfo = new JSONArray(message[1]);
+                    ArrayList<Taches> lesTaches = new ArrayList<>();
+
+                    System.out.println("passe dans le try acces Distant");
+
+                    for (int i = 0; i < jSonInfo.length(); i++) {
+
+                        System.out.println("passe dans le for acces Distant");
+
+                        JSONObject info = new JSONObject(jSonInfo.get(i).toString());
+
+
+                        int num_tache = info.getInt("numTache");
+                        String titre = info.getString("titre");
+                        String categorie = info.getString("categorie");
+                        String duree = info.getString("duree");
+
+                        String urgence = info.getString("urgence");
+                        String dateLimite = info.getString("date_limite");
+                        String commentaire = info.getString("commentaire");
+
+
+
+                        Taches taches = new Taches(num_tache, titre, categorie, urgence, duree,
+                                dateLimite, null, commentaire );
+                        lesTaches.add(taches);
+                        System.out.println("passage fin du for acces Distant");
+
+                    }
+                    System.out.println("passage controleur qui set le tableau dans accesDistant ligne 72");
+                    controler.setLesTaches(lesTaches);
+
+                } catch (JSONException e) {
+                    Log.d("erreur", "conversion JSON impossible " + e.toString());
+                }
+
+            } else {
                     if (message[0].equals("Erreur !")) {
                         Log.d("Erreur !", "******************" + message[1]);
                     }

@@ -16,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,22 +29,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.List;
 
-public class ListeTaches extends AppCompatActivity  {
+public class ListeTaches extends AppCompatActivity {
 
 
     private ImageView btnAddTache;
+    private Menu menu;
 
     // On veut un RecyclerView qui utilise un LinearLayoutManager
     private LinearLayoutManager layoutManager = new LinearLayoutManager(this);
     private ListTachesAdapter listTachesAdapter;
     private Controler controler;
     GoFicheIntent.OnTonFragmentInteractionListener mListener;
-
-
-
-
+    private View btnCalendrier;
 
 
     @Override
@@ -55,9 +55,11 @@ public class ListeTaches extends AppCompatActivity  {
         changeToolbarFont((Toolbar) findViewById(R.id.toolbar), this);
 
 
-
-
         this.controler = Controler.getInstance(this);
+
+
+        updateListe();
+
 
         Intent intent = getIntent();
 
@@ -93,6 +95,22 @@ public class ListeTaches extends AppCompatActivity  {
         //  txtTitre.setTypeface(font);
     }
 
+    private void updateListe() {
+
+        Intent i = getIntent();
+        if (i != null &&  i.hasExtra("classCateg")){
+            System.out.println("intent différent de null");
+            controler.updateListeParCateg();
+
+
+        }else {
+            System.out.println("intent null");
+
+            controler.updateListe();
+        }
+
+    }
+
 
     private void init() {
 
@@ -100,6 +118,7 @@ public class ListeTaches extends AppCompatActivity  {
 
 
         btnAddTache = (ImageView) findViewById(R.id.add);
+        btnCalendrier = (TextView) findViewById(R.id.action_mode);
 
 
         //TextField/////////////////////////////////////
@@ -111,6 +130,7 @@ public class ListeTaches extends AppCompatActivity  {
         //Font///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         final Typeface font = Typeface.createFromAsset(getAssets(), "fonts/vfuturalight.otf");
+
 
         //InitFontOnButton///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -138,9 +158,6 @@ public class ListeTaches extends AppCompatActivity  {
                 listTachesAdapter = new ListTachesAdapter(listTachesRemplie, mListener);
 
 
-
-
-
                 recyclerView.setAdapter(listTachesAdapter);
 
                 recyclerView.setAlpha(0f);
@@ -148,18 +165,11 @@ public class ListeTaches extends AppCompatActivity  {
                 ObjectAnimator.ofFloat(recyclerView, "alpha", 0f, 1f).setDuration(2000).start();
 
 
-
-             //   recyclerView.setAlpha(0f);
-
+                //   recyclerView.setAlpha(0f);
 
 
-
-
-
-             //   ObjectAnimator.ofFloat(recyclerView, "alpha", 0f, 1f).setDuration(2000).start();
+                //   ObjectAnimator.ofFloat(recyclerView, "alpha", 0f, 1f).setDuration(2000).start();
                 //markerTerrainArrayList.get(y).setAlpha(h);
-
-
 
 
                 recyclerView.addOnItemTouchListener(new RecyclerviewItemListener(getApplicationContext(), recyclerView, new RecyclerviewItemListener.ClickListener() {
@@ -192,12 +202,25 @@ public class ListeTaches extends AppCompatActivity  {
         }, 1000);
 
 
-
-
         //Listener///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
         btnAddTacheListener();
+
+
+    }
+
+    private void btnCalendrierListener() {
+        btnCalendrier.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                Intent i = new Intent(ListeTaches.this, Calendrier.class);
+                startActivity(i);
+                finish();
+
+
+            }
+        });
 
     }
 
@@ -226,6 +249,15 @@ public class ListeTaches extends AppCompatActivity  {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+
+        Intent i = getIntent();
+        if (i!= null && i.hasExtra("classCateg")){
+            this.menu = menu;
+            this.menu.getItem(1).setTitle("Trier par urgence");
+
+        }
+
         return true;
     }
 
@@ -237,9 +269,39 @@ public class ListeTaches extends AppCompatActivity  {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_mode) {
+
+            Intent i = getIntent();
+            if (i.hasExtra("classCateg")){
+                Boolean classCateg = true;
+                Intent ii = new Intent(ListeTaches.this, ListeTaches.class);
+                startActivity(ii);
+                finish();
+
+
+            }else {
+                Boolean classCateg = true;
+                Intent ii = new Intent(ListeTaches.this, ListeTaches.class);
+                ii.putExtra("classCateg", classCateg);
+                startActivity(ii);
+                finish();
+            }
+
+
+
+
+
             return true;
         }
+
+        if (id == R.id.calendar) {
+            Intent i = new Intent(ListeTaches.this, Calendrier.class);
+            startActivity(i);
+            finish();
+
+            return true;
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -249,7 +311,6 @@ public class ListeTaches extends AppCompatActivity  {
 
         btnAddTache.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
 
 
             }

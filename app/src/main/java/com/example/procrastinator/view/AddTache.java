@@ -77,7 +77,7 @@ public class AddTache extends AppCompatActivity {
     private TextInputEditText input_commentaire_clientT;
     private EditText datelimiteT;
     private Calendar myCalendar;
-    private TextInputEditText input_duree;
+    private TextInputLayout input_duree;
     private TextInputEditText input_dureeT;
 
 
@@ -170,7 +170,7 @@ public class AddTache extends AppCompatActivity {
         spinnerCategorie = findViewById(R.id.spinnerCategorie);
         spinnerUrgence = findViewById(R.id.spinnerUrgence);
 
-        String[] items = new String[]{"Catégorie :", "Papirasse adminidstrative", "Cours", "Famille", "Achat"};
+        String[] items = new String[]{"Catégorie :", "Papier", "Cours", "Famille", "Achat"};
 //create an adapter to describe how the items are displayed, adapters are used in several places in android.
 //There are multiple variations of this, but this is the basic variant.
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
@@ -238,8 +238,7 @@ public class AddTache extends AppCompatActivity {
                                             }
 
                                             // spinnerCategorie.("" + lesClients.get(z).getDateLimite());
-                                            input_txtCommentaire.getEditText().setText("" + lesTaches.get(z).getCommentaire_tache());
-                                            input_commentaire_client.getEditText().setText(lesTaches.get(z).getCommentaire_tache());
+                                            input_commentaire_clientT.setText(lesTaches.get(z).getCommentaire_tache());
 
                                         }
                                     }
@@ -328,7 +327,7 @@ public class AddTache extends AppCompatActivity {
 
         /* autoincrement a modifier*/
         // num_secteur_terrain = secteur;
-        titre = input_txtTitre.getEditText().getText().toString().toUpperCase();
+        titre = input_txtTitre.getEditText().getText().toString();
 
         urgence = spinnerUrgence.getSelectedItem().toString();
 
@@ -353,6 +352,7 @@ public class AddTache extends AppCompatActivity {
 
             this.controler.modifierTache(tacheNumId, titre, categorie, urgence, duree, dateLimite,
                     this, commentaire_tache);
+
 
         } else {
 

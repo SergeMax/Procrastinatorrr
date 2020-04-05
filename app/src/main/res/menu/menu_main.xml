@@ -1,10 +1,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.procrastinator.view.ListeTaches">
-    <item
-        android:id="@+id/action_settings"
+    tools:context="com.example.procrastinator.view.ListeTaches"
+    android:id="@+id/titreApp"
+    >
+
+    <item  android:id="@+id/calendar"
+        android:icon="@drawable/ic_date_range_black_24dp"
+        app:showAsAction="ifRoom"
+        android:title="@string/calendrier"
+
+        />
+
+    <item  android:id="@+id/action_mode"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+
+        app:showAsAction="never"
+        android:title="@string/trierparcateg"/>
+
+    <item  android:id="@+id/action_option"
+        android:orderInCategory="100"
+        android:title="@string/options"
         app:showAsAction="never" />
 </menu>

@@ -178,12 +178,11 @@ txtCategorie.setAlpha(0);
 
                                     txtCategorie.setVisibility(View.VISIBLE);
                                     Animation.animFonduOpacity(1000, txtCategorie);
-                                    Animation.animFonduOpacity(0, txtDateLimiteT);
-                                    Animation.animFonduOpacity(100, txtTitre1T);
-                                    Animation.animFonduOpacity(200, txtUrgenceT);
-                                    Animation.animFonduOpacity(300, txtRepetT);
-                                    Animation.animFonduOpacity(400, dureeT);
-                                    Animation.animFonduOpacity(500, txtCommentaireT);
+                                    Animation.animFonduOpacity(0, txtTitre1T);
+                                    Animation.animFonduOpacity(100, txtUrgenceT);
+                                    Animation.animFonduOpacity(200, txtDateLimiteT);
+                                    Animation.animFonduOpacity(300,  dureeT);
+                                    Animation.animFonduOpacity(400,txtCommentaireT);
 
 
 

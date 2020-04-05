@@ -49,8 +49,8 @@ android:layout_marginRight="60dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="185dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="-15dp"
 
         tools:context="com.example.formation.myrecyclerview.MainActivity">>
 

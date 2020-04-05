@@ -47,6 +47,16 @@ public final class Controler {
         return Controler.instance;
     }
 
+    public void updateListe(){
+        accesDistant = new AccesDistant();
+        accesDistant.envoi("getListeTaches", new JSONArray());
+    }
+
+    public void updateListeParCateg(){
+        accesDistant = new AccesDistant();
+        accesDistant.envoi("getListeTachesParCateg", new JSONArray());
+    }
+
     public ArrayList<Taches> getLesTaches() {
         // System.out.println(lesTaches);
         return this.lesTaches;

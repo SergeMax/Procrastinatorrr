@@ -2,4 +2,9 @@
     <string name="app_name">Procrastinator</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="calendrier">Calendrier</string>
+    <string name="option">Option</string>
+    <string name="options">Options</string>
+    <string name="title_activity_calendrier">Calendrier</string>
+    <string name="trierparcateg">Trier par catégorie</string>
 </resources>
