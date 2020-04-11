@@ -8,8 +8,11 @@
                 />
 
             <corners android:radius="5dp" />
-            <gradient android:angle="-90" android:startColor="#ffc700" android:endColor="#ffc700" />
-
+            <gradient android:angle="-90" android:startColor="#D8FFD4" android:endColor="#D8FFD4" />
+<padding android:left="30dp"
+    android:right="30dp"
+    android:bottom="30dp"
+    android:top="30dp"></padding>
            <!-- <solid android:color="@color/white" />-->
         </shape>
     </item>

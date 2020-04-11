@@ -66,7 +66,7 @@ public class AddTache extends AppCompatActivity {
     private ArrayList<ArrayList> tab_polygone_client;
     private Spinner spinnerCategorie;
     private Spinner spinnerUrgence;
-    private TextInputLayout input_commentaire_client;
+    private TextInputLayout input_commentaire;
 
     private boolean modeEdit;
     private String polyClient;
@@ -150,7 +150,7 @@ public class AddTache extends AppCompatActivity {
         input_dureeT = findViewById(R.id.txtDureeT);
 
 
-        input_commentaire_client = (TextInputLayout) findViewById(R.id.txtCommentaire);
+        input_commentaire = (TextInputLayout) findViewById(R.id.txtCommentaire);
         input_commentaire_clientT = (TextInputEditText) findViewById(R.id.txtCommentaireT);
 
 
@@ -267,7 +267,7 @@ public class AddTache extends AppCompatActivity {
 
     //Validation Formulaire///////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private boolean validateNomClient1() {
+    private boolean validateTitre() {
         String emailInput = input_txtTitre.getEditText().getText().toString().trim();
 
         if (emailInput.isEmpty()) {
@@ -282,7 +282,7 @@ public class AddTache extends AppCompatActivity {
     }
 
 
-    private boolean validateTelClient1() {
+    private boolean validateDateLimite() {
         String emailInput = datelimiteT.getText().toString().trim();
 
         if (emailInput.isEmpty()) {
@@ -297,20 +297,20 @@ public class AddTache extends AppCompatActivity {
 
     private void setChampsVide() {
 
-        String commentaireClient = input_commentaire_client.getEditText().getText().toString().trim();
+        String commentaire = input_commentaire.getEditText().getText().toString().trim();
 
-        if (commentaireClient.isEmpty()) {
+        if (commentaire.isEmpty()) {
             commentaire_tache = null;
         } else {
-            commentaire_tache = input_commentaire_client.getEditText().getText().toString();
+            commentaire_tache = input_commentaire.getEditText().getText().toString();
         }
     }
 
     public void confirmInput(View view) throws ParseException {
 
-        if (!validateNomClient1() | !validateTelClient1()) {
+        if (!validateTitre() | !validateDateLimite()) {
 
-            Toast toast = Toast.makeText(getApplicationContext(), "Les champs  *  ne peuvent être vides.", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(getApplicationContext(), "Les champs surlignés ne peuvent être vides.", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 450);
             view = toast.getView();
             TextView view1 = (TextView) view.findViewById(android.R.id.message);
@@ -336,7 +336,7 @@ public class AddTache extends AppCompatActivity {
 
         String duree = input_dureeT.getText().toString();
 
-                commentaire_tache = input_commentaire_client.getEditText().getText().toString();
+                commentaire_tache = input_commentaire.getEditText().getText().toString();
 
         setChampsVide();
 
