@@ -8,4 +8,76 @@
     tools:context=".view.Calendrier"
     tools:showIn="@layout/activity_calendrier">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+       <!-- <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="150dp"></CalendarView>-->
+        <TextView
+            android:id="@+id/monthText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="100dp"
+            android:textAlignment="center"
+            android:text="Month"
+            android:textSize="25dp"/>
+
+
+        <com.github.sundeepk.compactcalendarview.CompactCalendarView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/calendarView"
+            android:layout_width="fill_parent"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="250dp"
+
+            android:layout_gravity="center_horizontal"
+            app:compactCalendarTargetHeight="250dp"
+            app:compactCalendarTextSize="12sp"
+            app:compactCalendarBackgroundColor="#A3BDF4"
+            app:compactCalendarTextColor="#fff"
+            app:compactCalendarCurrentSelectedDayBackgroundColor="#739FE5"
+            app:compactCalendarCurrentDayBackgroundColor="#CC7171"
+            app:compactCalendarMultiEventIndicatorColor="#fff"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#FF909090"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgClient"
+            />
+        <ImageView
+            android:id="@+id/imgClient"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginLeft="146dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginTop="30dp"
+            android:alpha="1"
+            android:foregroundGravity="center_horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/main" />
+
+
+    </LinearLayout>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
