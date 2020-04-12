@@ -1,5 +1,6 @@
 package com.example.procrastinator.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -73,7 +74,7 @@ public class Calendrier extends AppCompatActivity {
         this.controler = Controler.getInstance(this);
         listTachesRemplie = controler.getLesTaches();
 
-        updateListe();
+        updateListe(this);
 
         init();
     }
@@ -238,18 +239,18 @@ public class Calendrier extends AppCompatActivity {
 
     }
 
-    private void updateListe() {
+    private void updateListe(Context context) {
 
         Intent i = getIntent();
         if (i != null && i.hasExtra("classCateg")) {
             System.out.println("intent différent de null");
-            controler.updateListeParCateg();
+            controler.updateListeParCateg(this);
 
 
         } else {
             System.out.println("intent null");
 
-            controler.updateListe();
+            controler.updateListe(this);
         }
 
     }

@@ -2,6 +2,7 @@ package com.example.procrastinator.view;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import com.example.procrastinator.controler.Controler;
 import com.example.procrastinator.model.Taches;
 import com.example.procrastinator.tools.tools.GoFicheIntent;
 import com.example.procrastinator.tools.tools.RecyclerviewItemListener;
+import com.example.procrastinator.tools.tools.longAction;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -29,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -44,6 +47,9 @@ public class ListeTaches extends AppCompatActivity {
     private Controler controler;
     GoFicheIntent.OnTonFragmentInteractionListener mListener;
     private View btnCalendrier;
+    private ArrayList<Taches> listTachesRemplie = new ArrayList<>();
+    private RecyclerView  recyclerView;
+
 
 
     @Override
@@ -58,9 +64,7 @@ public class ListeTaches extends AppCompatActivity {
         this.controler = Controler.getInstance(this);
 
 
-        updateListe();
-
-
+        updateListe(this);
         Intent intent = getIntent();
 
         if (intent != null) {
@@ -91,25 +95,115 @@ public class ListeTaches extends AppCompatActivity {
 
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/vfuturalight.otf");
 
+        // longAction.executeLongActionDuring7seconds();
+
+
+
+        setListe();
+
+
+
+     /*   new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                listTachesRemplie.clear();
+
+                ArrayList<Taches> liste = controler.getLesTaches();
+              //  listTachesAdapter.notifyDataSetChanged();
+                listTachesRemplie.addAll(liste);
+
+                listTachesAdapter.notifyDataSetChanged();
+
+
+
+            }
+        }, 2000);
+*/
+
 
         //  txtTitre.setTypeface(font);
     }
 
-    private void updateListe() {
+
+    private void updateListe(ListeTaches listeTaches) {
 
         Intent i = getIntent();
         if (i != null &&  i.hasExtra("classCateg")){
             System.out.println("intent différent de null");
-            controler.updateListeParCateg();
+            controler.updateListeParCateg(this);
 
 
         }else {
             System.out.println("intent null");
 
-            controler.updateListe();
+            controler.updateListe(this);
         }
 
     }
+
+    public void setListe(){
+
+        //InitListView/////////////////////////////////////////////////////////////////////////////////////////////////////////
+    recyclerView = (RecyclerView) findViewById(R.id.taches_recyclerview);
+
+
+        // if (controler.getLesTaches().get(0) != null) {
+
+       listTachesRemplie = controler.getLesTaches();
+        System.out.println("liste tache dans setListe avant delay .................................." + listTachesAdapter);
+
+
+
+        recyclerView.setLayoutManager(layoutManager);
+
+
+        // On donne notre adapter à notre RecyclerView
+        listTachesAdapter = new ListTachesAdapter(listTachesRemplie, mListener);
+
+
+        recyclerView.setAdapter(listTachesAdapter);
+
+        recyclerView.setAlpha(0f);
+
+        ObjectAnimator.ofFloat(recyclerView, "alpha", 0f, 1f).setDuration(2000).start();
+
+
+        //   recyclerView.setAlpha(0f);
+
+
+        //   ObjectAnimator.ofFloat(recyclerView, "alpha", 0f, 1f).setDuration(2000).start();
+        //markerTerrainArrayList.get(y).setAlpha(h);
+
+
+        recyclerView.addOnItemTouchListener(new RecyclerviewItemListener(getApplicationContext(), recyclerView, new RecyclerviewItemListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Taches taches = listTachesRemplie.get(position);
+                //  Toast.makeText(getApplicationContext(), clients.getTitre() + " is selected!", Toast.LENGTH_SHORT).show();
+
+                Intent i = new Intent(ListeTaches.this, TacheFiche.class);
+                i.putExtra("numTache", "" + taches.getNum_tache());
+
+
+                startActivity(i);
+                finish();
+
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
+
+        // On sépare chaque ligne de notre liste par un trait
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
+    }
+
+
 
 
     private void init() {
@@ -138,7 +232,7 @@ public class ListeTaches extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
+/*
                 //InitListView/////////////////////////////////////////////////////////////////////////////////////////////////////////
                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.taches_recyclerview);
 
@@ -197,7 +291,7 @@ public class ListeTaches extends AppCompatActivity {
 
                 // On sépare chaque ligne de notre liste par un trait
                 DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
-                recyclerView.addItemDecoration(dividerItemDecoration);
+                recyclerView.addItemDecoration(dividerItemDecoration);*/
             }
         }, 1000);
 
@@ -223,6 +317,7 @@ public class ListeTaches extends AppCompatActivity {
         });
 
     }
+
 
 
     public static void changeToolbarFont(Toolbar toolbar, Activity context) {

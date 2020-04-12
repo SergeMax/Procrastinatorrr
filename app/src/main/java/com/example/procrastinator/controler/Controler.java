@@ -3,13 +3,19 @@ package com.example.procrastinator.controler;
 import android.content.Context;
 
 
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.procrastinator.R;
 import com.example.procrastinator.model.AccesDistant;
 import com.example.procrastinator.model.Taches;
+import com.example.procrastinator.view.Calendrier;
 import com.example.procrastinator.view.ListeTaches;
 
 import org.json.JSONArray;
 
 import java.util.ArrayList;
+
+import static com.example.procrastinator.view.ListeTaches.*;
 
 
 public final class Controler {
@@ -35,26 +41,37 @@ public final class Controler {
     public static final Controler getInstance(Context contexte) {
         if (contexte != null) {
             Controler.context = contexte;
+
+
         }
         if (Controler.instance == null) {
             Controler.instance = new Controler();
-         //   recupSerialize(contexte);
+            //   recupSerialize(contexte);
 //            recupSerializeTabClients(contexte);
-            accesDistant = new AccesDistant();
-            accesDistant.envoi("getListeTaches", new JSONArray());
+            accesDistant = new AccesDistant(contexte);
+            accesDistant.envoi("getListeTaches", new JSONArray(), contexte);
 
         }
         return Controler.instance;
     }
 
-    public void updateListe(){
-        accesDistant = new AccesDistant();
-        accesDistant.envoi("getListeTaches", new JSONArray());
+    public void updateListe(Context contexte) {
+        accesDistant = new AccesDistant(contexte);
+        accesDistant.envoi("getListeTaches", new JSONArray(), contexte);
+
+        System.out.println(" context " + context.toString());
+        if (context instanceof ListeTaches) {
+            ((ListeTaches) context).setListe();
+        } else if (context instanceof Calendrier) {
+           // ((Calendrier) context).setListe();
+        }
+
+
     }
 
-    public void updateListeParCateg(){
-        accesDistant = new AccesDistant();
-        accesDistant.envoi("getListeTachesParCateg", new JSONArray());
+    public void updateListeParCateg(Context contexte) {
+        accesDistant = new AccesDistant(contexte);
+        accesDistant.envoi("getListeTachesParCateg", new JSONArray(), contexte);
     }
 
     public ArrayList<Taches> getLesTaches() {
@@ -66,8 +83,15 @@ public final class Controler {
     public void setLesTaches(ArrayList<Taches> lesTaches) {
         this.lesTaches = lesTaches;
         System.out.println("passage setLesTaches" + lesTaches);
-    }
 
+        if (context instanceof ListeTaches) {
+            ((ListeTaches) context).setListe();
+        } else if (context instanceof Calendrier) {
+            // ((Calendrier) context).setListe();
+        }
+
+
+    }
 
 
     public void setListClient(Taches client) {
@@ -76,14 +100,14 @@ public final class Controler {
     }
 
 
-    public void creerTache(String  titre, String categorie, String urgence, String duree, String dateLimite, Context context, String commentaire){
+    public void creerTache(String titre, String categorie, String urgence, String duree, String dateLimite, Context context, String commentaire) {
         tache = new Taches(titre, categorie, urgence, duree, dateLimite, context, commentaire);
 
         System.out.println(tache);
 
         lesTaches.add(tache);
 
-        accesDistant.envoi("enregTache", tache.convertToJSONArrayAddClient());
+        accesDistant.envoi("enregTache", tache.convertToJSONArrayAddClient(), context);
 
      /*   Taches.addClient(tache);
         tabTache = Taches.getArray_clients();*/
@@ -92,16 +116,14 @@ public final class Controler {
         //Serializer.serializeTabClients(nomFictabClient, tabTache, contexte);
     }
 
-    public void modifierTache(int num_tache, String  titre, String categorie, String urgence, String duree, String dateLimite, Context context, String commentaire) {
+    public void modifierTache(int num_tache, String titre, String categorie, String urgence, String duree, String dateLimite, Context context, String commentaire) {
 
         tache = new Taches(num_tache, titre, categorie, urgence, duree, dateLimite, context, commentaire);
 
 
-        accesDistant.envoi("modifTache", tache.convertToJSONArrayModifClient());
+        accesDistant.envoi("modifTache", tache.convertToJSONArrayModifClient(), context);
 
     }
-
-
 
 
 //Taches//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

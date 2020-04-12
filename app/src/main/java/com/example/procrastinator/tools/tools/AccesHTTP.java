@@ -1,7 +1,19 @@
 package com.example.procrastinator.tools.tools;
 
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.view.View;
+import android.view.Window;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.procrastinator.R;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -22,12 +34,18 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
 
     public AsyncResponse delegate=null; // gestion du retour asynchrone
     private String parametres = ""; // paramètres à envoyer en POST au serveur
+    ProgressBar progress;
+    Context context;
+    Handler handler;
+    Dialog dialog;
+    int myProgress;
 
     /**
      * Constructeur : ne fait rien
      */
-    public AccesHTTP() {
+    public AccesHTTP(Context contexte) {
         super();
+        this.context = contexte;
     }
 
     /**
@@ -47,6 +65,35 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Override
+    protected void onPreExecute() {
+
+        super.onPreExecute();
+        // create dialog
+        dialog=new Dialog(context);
+        dialog.setCancelable(true);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.progressdialog);
+
+       /* RelativeLayout layout = dialog.findViewById(R.layout.progressdialog);
+        progress = new ProgressBar(context, null, android.R.attr.progressBarStyleLarge);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 100);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        layout.addView(progress, params);*/
+
+        progress=(ProgressBar)dialog.findViewById(R.id.progressBar);
+
+
+                progress.setVisibility(View.VISIBLE);
+                dialog.show();
+
+
+
+
+
     }
 
     /**
@@ -107,8 +154,14 @@ public class AccesHTTP extends AsyncTask<String, Integer, Long> {
      */
     @Override
     protected void onPostExecute(Long result) {
+
         // ret contient l'information récupérée
         delegate.processFinish(this.ret.toString());
+
+        if (dialog.isShowing()){
+            dialog.dismiss();
+       dialog.cancel();}
+
     }
 
 }

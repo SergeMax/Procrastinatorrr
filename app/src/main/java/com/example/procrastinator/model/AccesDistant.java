@@ -1,5 +1,6 @@
 package com.example.procrastinator.model;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.procrastinator.controler.Controler;
@@ -10,12 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-
 
 
 public class AccesDistant implements AsyncResponse {
@@ -24,7 +20,7 @@ public class AccesDistant implements AsyncResponse {
     private static final String SERVERADDR = "http://s794979271.onlinehome.fr/procrastinatorPHP/serveurprocrastinator.php";
     private Controler controler;
 
-    public AccesDistant() {
+    public AccesDistant(Context contexte) {
         controler = Controler.getInstance(null);
     }
 
@@ -153,10 +149,10 @@ public class AccesDistant implements AsyncResponse {
 
 
 
-    public void envoi(String operation, JSONArray lesDonneesJSON) {
+    public void envoi(String operation, JSONArray lesDonneesJSON, Context contexte) {
 
         System.out.println("::::::: envoi");
-        AccesHTTP accesDonnes = new AccesHTTP();
+        AccesHTTP accesDonnes = new AccesHTTP(contexte);
         // lien de délégation
         accesDonnes.delegate = this;
         // ajout paramètres
