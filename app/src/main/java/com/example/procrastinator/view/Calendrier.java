@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -134,13 +135,13 @@ public class Calendrier extends AppCompatActivity {
             long epoch = date.getTime();
 
             String data = "" + listTachesRemplie.get(i).getCategorie().toUpperCase() + "\n \n" +
-                     "__________________________ \n\n" +
+                    "__________________________ \n\n" +
                     "Titre : " + listTachesRemplie.get(i).getTitre() + "\n \n" +
                     "Urgence : " + listTachesRemplie.get(i).getUrgence() + "\n \n" +
                     "Commentaire : \n \n" + listTachesRemplie.get(i).getCommentaire_tache();
 
 
-            switch(listTachesRemplie.get(i).getUrgence()) {
+            switch (listTachesRemplie.get(i).getUrgence()) {
                 case "1":
                     colorr = rgb(245, 253, 169);
                     break;
@@ -177,7 +178,6 @@ public class Calendrier extends AppCompatActivity {
             }
 
 
-
             Event ev1 = new Event(colorr, epoch, data);
 
 
@@ -195,16 +195,17 @@ public class Calendrier extends AppCompatActivity {
         calendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date dateClicked) {
+                int compteur = 0;
                 List<Event> events = calendarView.getEvents(dateClicked);
                 if (events.size() > 0) {
 
                     for (int z = 0; z < events.size(); z++) {
 
                         String message = events.get(z).getData().toString();
-                        message=message + "\n \n"+ "__________________________ \n\n"+(z+1)+"/"+events.size() ;
+                        message = message + "\n \n" + "__________________________ \n\n" + (z + 1) + "/" + events.size();
 
 
-                       Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
+                        final Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
 
                         toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 400);
 
@@ -214,7 +215,17 @@ public class Calendrier extends AppCompatActivity {
 
                         view.setBackgroundResource(R.drawable.toast_yellow_shape);
 
-                        toast.show();
+
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                toast.show();
+
+                            }
+                        }, compteur);
+
+                        compteur = compteur + 4000;
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "Aucune tâche ce jour", Toast.LENGTH_LONG).show();
@@ -256,7 +267,6 @@ public class Calendrier extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -277,7 +287,6 @@ public class Calendrier extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
 
 
         //noinspection SimplifiableIfStatement
