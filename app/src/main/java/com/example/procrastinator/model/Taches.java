@@ -73,13 +73,12 @@ public class Taches implements Serializable {
     @Override
     public String toString() {
         return
-                "<div style='background-color: #F5F5F5; border-radius: 10px; margin:25px; padding:25px;'><h2>Tâche : " + "</h2>" +
-                        "Categorie : " + categorie + "<br>" +
-                        "Titre : " + titre + "<br>" +
+                "<div style='background-color: #F5F5F5; border-radius: 10px; margin:25px;  padding:25px; padding-bottom:45px;'><h2 style='text-align:center;'>"  + categorie + "</h2>" +
+                        "Titre : <b>" + titre + "</b><br>" +
                         "Urgence : " + urgence + "<br>" +
                         "Duree : " + duree + "<br>" +
                         "Date limite : " + dateLimite + "<br>" +
-                        "<h2>Commentaire : " + "</h2>" +
+                        "<h3>Commentaire : " + "</h3>" +
                         commentaire_tache + "<br></div>";
     }
 

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.example.procrastinator.R;
@@ -12,10 +13,12 @@ import com.example.procrastinator.controler.Controler;
 import com.example.procrastinator.model.Taches;
 import com.example.procrastinator.tools.tools.GoFicheIntent;
 import com.example.procrastinator.tools.tools.RecyclerviewItemListener;
+import com.example.procrastinator.tools.tools.SendMailTask;
 import com.example.procrastinator.tools.tools.longAction;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -24,6 +27,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +36,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -49,7 +54,7 @@ public class ListeTaches extends AppCompatActivity {
     private View btnCalendrier;
     private ArrayList<Taches> listTachesRemplie = new ArrayList<>();
     private RecyclerView  recyclerView;
-
+    private String emailBody;
 
 
     @Override
@@ -395,6 +400,54 @@ public class ListeTaches extends AppCompatActivity {
             finish();
 
             return true;
+        }
+
+        if (id == R.id.action_option){
+
+            final String fromEmail = "capterrain69@gmail.com";
+
+            final String fromPassword = "CTI69SOURN";
+            String toEmails = "cansellmaxime@gmail.com";
+            final List toEmailList = Arrays.asList(toEmails
+                    .split("\\s*,\\s*"));
+            Log.i("SendMailActivity", "To List: " + toEmailList);
+            final String emailSubject = "Vos tâches à réaliser !";
+
+            emailBody = "";
+            emailBody += "<h1 text-decoration: underline green; font-weight: normal;><b>Liste des tâches : <b> </h1>  <br> <br>";
+
+
+        //    ArrayList<Clients> lesClients = new ArrayList<>();
+
+      //      lesClients = controler.getLesClients();
+
+            int compteur = 1;
+
+            for (int z = 0; z < listTachesRemplie.size(); z++) {
+
+                    // emailBody += "<div style='border:1px solid green; width:100%; height:1px; opacity:0.5;'></div>";
+                    emailBody += "<h2 style='color:royalblue; text-align: center; font-weight: normal;'>Tache n° " + (compteur) + " : </h2>";
+                    //   emailBody += "<div style='border:1px solid green; width:100%; height:1px; opacity:0.5;'></div>";
+                    emailBody += " <br>";
+                    emailBody += listTachesRemplie.get(z).toString();
+                    emailBody += " <br> <br> ";
+                    compteur += 1;
+                }
+
+
+
+            new android.os.Handler().postDelayed(
+                    new Runnable() {
+                        @RequiresApi(api = Build.VERSION_CODES.M)
+                        public void run() {
+
+                            new SendMailTask(ListeTaches.this).execute(fromEmail,
+                                    fromPassword, toEmailList, emailSubject, emailBody);
+
+
+                        }
+                    },
+                    500);
         }
 
 
